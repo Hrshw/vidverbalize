@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Videos</title>
+</head>
+<body>
+<h1>My Videos</h1>
+
+{{#each videos}}
+  <p>Title: {{title}}</p>
+  <p>Expiry Time: {{formattedExpiryTime}}</p>
+  <p>Video URL: {{video_url}}</p>
+{{/each}}
+
+</body>
+</html>
