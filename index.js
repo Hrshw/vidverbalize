@@ -151,17 +151,12 @@ app.post('/process-video', upload.single('videoFile'), isAuthenticated, (req, re
   const duration = req.body.duration || 15; // Default to 15 seconds
   const videoSource = req.file ? req.file.path : req.body.videoUrl;
   const userId = req.user.id; // Get the user's ID
-  let message = '';
 // Send an immediate response indicating that video processing has started
 res.status(202).json({ message: 'Video processing started. Please wait...' });
   if (!videoSource) {
     return res.status(400).json({ error: 'No video source provided' });
   }
 
-   // Check video duration and set the message
-   if (duration < 90) {
-    message = 'Video is too long. Using the first 90 seconds for processing.';
-  }
   // Initialize a flag to track whether an error occurred
   let errorOccurred = false;
 
@@ -173,7 +168,6 @@ res.status(202).json({ message: 'Video processing started. Please wait...' });
     '--user-id', userId
   ]);
 
-  
   // Handle the Python script's output and errors
   pythonProcess.stdout.on('data', (data) => {
     console.log(`Python script output: ${data}`);
